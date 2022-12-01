@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shape</title>
+</head>
+<body>
+<div class="container">
+    <div>
+<label for="shapes">Shapes:</label>
+<select name="shapes" id="shapes">
+    <option value="rectangle">Rectangle</option>
+    <option value="square">Square</option>
+    <option value="circle">Circle</option>
+    <option value="cylindrical">Cylindrical</option>
+</select>
+    </div>
+    <div>
+        <label for="radius">Radius:</label><input disabled type="text" id="radius">
+    </div>
+    <div>
+        <label for="width">Width:</label><input type="text" id="width">
+    </div>
+    <div>
+        <label for="height">Height:</label><input type="text" id="height">
+    </div>
+</div>
+<div class="res">
+    <p>perimeter: <span id="perres"></span></p>
+    <p>area: <span id="areares"></span></p>
+</div>
+<script src="shape.js"></script>
+</body>
+</html>

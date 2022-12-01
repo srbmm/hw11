@@ -37,6 +37,8 @@ class Polygon extends Shape{
         return this.#height_shape * this.#width_shape;
     }
     perimeter() {
+        console.log(this.#height_shape)
+        console.log(this.#width_shape)
         return (this.#height_shape + this.#width_shape) * 2;
     }
 }
@@ -61,7 +63,14 @@ class Square extends Polygon{
     constructor(width) {
         super(width, width);
     }
+    set width(value) {
+    if (value > 0){
+        super.width = value;
+        this.height = value;
+    }
+    }
 }
+
 class Rectangle extends Polygon{
     constructor(width, height) {
         super(height, width);
@@ -87,4 +96,46 @@ class Cylindrical extends Circle{
     area() {return (Math.PI * (this.radius ** 2)) * this.#height_shape}
     perimeter() {return 2 * Math.PI * (this.radius) * (this.radius + this.#height_shape)}
 }
-export {Square, Rectangle, Circle, Cylindrical};
+const shapeSelc = document.getElementById('shapes'),
+    radiusInp = document.getElementById('radius'),
+    widthInp = document.getElementById('width'),
+    heightInp = document.getElementById('height'),
+    preP = document.getElementById('perres'),
+    areaP = document.getElementById('areares');
+let myShape = new Rectangle(0, 0);
+shapeSelc.addEventListener('change', function (e) {
+    heightInp.value = '';
+    widthInp.value = '';
+    radiusInp.value = '';
+    if(e.target.value === 'rectangle'){
+        heightInp.disabled = false;
+        widthInp.disabled = false;
+        radiusInp.disabled = true;
+        myShape = new Rectangle(0,0);
+    }else if(e.target.value === 'square'){
+        heightInp.disabled = true;
+        widthInp.disabled = false;
+        radiusInp.disabled = true;
+        myShape = new Square(0);
+    }else if(e.target.value === 'circle'){
+        heightInp.disabled = true;
+        widthInp.disabled = true;
+        radiusInp.disabled = false;
+        myShape = new Circle(0);
+    }else if(e.target.value === 'cylindrical'){
+        heightInp.disabled = false;
+        widthInp.disabled = true;
+        radiusInp.disabled = false;
+        myShape = new Cylindrical(0,0);
+    }
+})
+function update() {
+    if (!widthInp.disabled) myShape.width = +widthInp.value;
+    if (!heightInp.disabled) myShape.height = +heightInp.value;
+    if (!radiusInp.disabled) myShape.radius = +radiusInp.value;
+    preP.innerText = myShape.perimeter();
+    areaP.innerText = myShape.area();
+}
+widthInp.addEventListener("keyup", update);
+heightInp.addEventListener("keyup", update);
+radiusInp.addEventListener("keyup", update);
