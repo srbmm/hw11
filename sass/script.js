@@ -61,15 +61,28 @@ const data = [
     imageURL: "assets/salad.png",
   },
 ];
-const mainMenu = document.getElementById("main");
+const mainMenu = document.getElementById("data");
 const totalFood = document.getElementById("total-food");
 const comission = document.getElementById("comission-percent");
 const finalRecipt = document.getElementById("final-recipt");
 const checkMark = document.getElementById("checkMark");
+const input_takhfif = document.getElementById("code_takhfif");
+const mizan_takhfif = document.getElementById("mizan_takhfif");
+const sabt = document.getElementById("sabt");
+sabt.addEventListener("click",() => {
+  window.location.reload();
+})
+code_takhfif = 1;
 checkMark.addEventListener("click", () => {
-  alert("code takhfif sahih nemibashad");
+  if(input_takhfif.value == "code"){
+    code_takhfif = 0.7;
+    update();
+  }
+  else{
+    code_takhfif = 1;
+    alert("ارور");
+  }
 });
-
 function update() {
   let sum = 0;
   mainMenu.innerHTML = "";
@@ -109,11 +122,9 @@ function update() {
         update();
       }
     });
-
     count.appendChild(btnPlus);
     count.appendChild(pCounter);
     count.appendChild(btnMinus);
-
     const totalPriceDiv = document.createElement("div");
     totalPriceDiv.classList.add("total-price");
     const spanPrice = document.createElement("span");
@@ -129,9 +140,9 @@ function update() {
     mainMenu.appendChild(mainDiv);
     sum += item.price * item.count;
   });
-
   totalFood.innerText = sum;
   comission.innerText = sum * 0.05;
-  finalRecipt.innerText = sum * 1.05;
+  finalRecipt.innerText = Math.floor(sum * 1.05 * code_takhfif);
+  mizan_takhfif.innerText = Math.ceil(sum * 1.05 * (1 - code_takhfif));
 }
 update();
